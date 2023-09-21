@@ -11,6 +11,7 @@ namespace Snake
 
         private static char transfer;
 
+        //定义表示蛇的字符
         private static char charSnake = '〇';
 
         //private static int snakeHeadPos_x;
@@ -20,16 +21,22 @@ namespace Snake
         //public static int SnakeHeadPos_y { get => snakeHeadPos_y; set => snakeHeadPos_y = value; }
 
 
+        //定义一个int类型的二维数组，用来存储蛇身每个部分的坐标。所有对蛇的操作全部以对此二维数组的操作
         public static int[,] snakeQueue;
+        //定义蛇初始化的方法
         public static void SnakeInit()
         {
+            //实例化Random类
             Random rd = new Random();
+
+            //分别从5到15的范围内取随机数组成一对横纵坐标，写入snakeQueue
             snakeQueue[0,0] = rd.Next(5, 16);
             snakeQueue[0,1] = rd.Next(5, 16);
-            //SnakeHeadPos_x=rd.Next(5, 16);
-            //SnakeHeadPos_y = rd.Next(5, 16);
+
+            //snakeQueue里现在第一组数据代表蛇头所在的坐标，把map里的对应的字符改写成代表蛇的字符
             Map.map[snakeQueue[0, 0], snakeQueue[0, 1]] = charSnake;
         }
+
 
         public  static void Move()
         {
@@ -37,8 +44,7 @@ namespace Snake
             
                 transfer = Map.map[snakeQueue[0, 0], snakeQueue[0, 1]];
 
-                ap.map[snakeQueue[0, 0], snakeQueue[0, 1]] = Map.map[SnakeHeadPos_x+1, SnakeHeadPos_y];
-                Map.map[SnakeHeadPos_x + 1, SnakeHeadPos_y] = transfer;
+                
 
                 Snake.WriteSnakeQueueToMap();
                 
