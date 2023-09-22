@@ -15,10 +15,15 @@
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
                     //此处的if（!() ）里有两层括号，最里层的括号里的条件代表着边界，外面的!表示逻辑非，最终的判断条件是非边界
-                    if (!(i>0 && i< map.GetLength(0)-1 && j>0 && j< map.GetLength(1)-1))
+                    if ( !(i>0 && i< map.GetLength(0)-1 && j>0 && j< map.GetLength(1)-1)  )
                     {
                        Map.map[i, j] = borderChar;
                     }
+                    else
+                    {
+                        Map.map[i, j] = ' ';
+                    }
+                    
                     
                 }
             }

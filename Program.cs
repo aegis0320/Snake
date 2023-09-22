@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 
 /*
@@ -20,7 +22,7 @@ namespace Snake
         {
 
             //1秒 = 1000 ,定义帧数为每秒20帧,即每帧之间的时间间隔是50
-            int tick = 50; 
+            int tick = 1000; 
             
             //把光标设置为不可见，全局有效
             Console.CursorVisible = false;
@@ -28,7 +30,9 @@ namespace Snake
             //游戏初始化
             GameInitiate();
 
-           
+            //接收用户输入的循环
+            Input.InputCycle();
+
             //游戏核心循环
             CoreCycle(tick);
 
@@ -37,12 +41,19 @@ namespace Snake
 
         }
 
+        
+
+
         //游戏核心循环方法
         private static void CoreCycle(int tick)
         {
+            
+
             //游戏核心循环
             while (true)
             {
+                //在核心循环的每一帧开始之前把map数据全部归零
+                Map.MapCenterClear();
 
                 /* 在游戏的一个核心循环里，应该经历以下过程：
                  * 执行果实的生成函数
@@ -51,12 +62,19 @@ namespace Snake
                  * 
 
                 */
-                //Snake.Move();
 
 
-                System.Threading.Thread.Sleep(2);
+
+                Snake.Move();
+                    
+                
+                
+
+
+                //System.Threading.Thread.Sleep(2);
                 Map.MapCenterRefresh();
                 System.Threading.Thread.Sleep(tick);
+                //Map.MapCenterClear();
 
             }
         }
@@ -64,21 +82,24 @@ namespace Snake
         //游戏初始化方法
         private static void GameInitiate()
         {
+            //这三个部分的初始化顺序有先后区别。地图初始化一定要放到最后执行。地图初始化是从Map.map里读取数据打印。蛇初始化要放到边界初始化之后执行，如果反过来，蛇的字符会被覆盖掉
+            
             //边界初始化
             Border.BorderGenerate(Map.map);
-
+            
+            //蛇初始化
+            Snake.SnakeInit();
+            
             //地图初始化
             Map.MapInitialPrint();
 
-            //蛇初始化
-            Snake.SnakeInit();
+            
         }
 
 
     }
-
-
     
+
 
     //public static class Tick
     //{
